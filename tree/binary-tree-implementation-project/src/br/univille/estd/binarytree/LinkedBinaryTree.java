@@ -24,14 +24,17 @@ public class LinkedBinaryTree<E> {
 	 * @return
 	 */
 	public int size() {
-		return -1;
+		return this.size;
 	}
 	
 	/**
 	 * Retorna se um nodo Ã© interno
 	 */
 	public boolean isInternal(BTPosition<E> v) throws InvalidPositionException{
-		return false;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		return v.getParent() != null  ? true : false;
 	}
 	
 	
@@ -39,34 +42,49 @@ public class LinkedBinaryTree<E> {
 	 * Retorna se um nodo Ã© externo
 	 */
 	public boolean isExternal(BTPosition<E> v) throws InvalidPositionException{
-		return false;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		return v.getParent() == null  ? true : false;
 	}
 	
 	/**
 	 * Retorna se um nodo Ã© a raiz
 	 */
 	public boolean isRoot(BTPosition<E> v) throws InvalidPositionException{
-		return false;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		return root.equals(v);
 	}
 	/**
 	 * Retorna se um nodo tem o filho da esquerda
 	 */
 	public boolean hasLeft(BTPosition<E> v) throws InvalidPositionException{
-		return false;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		return v.getLeft() != null ? true : false;
 	}
 	
 	/**
 	 * Retorna se um nodo tem o filho da direita
 	 */
 	public boolean hasRight(BTPosition<E> v) throws InvalidPositionException{
-		return false;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		return v.getRight() != null ? true : false;
 	}
 	
 	/**
 	 * Retorna a raiz da Ã¡rvore
 	 */
 	public BTPosition<E> root() throws EmptyTreeException{
-		return null;
+		if(this.size == 0) {
+			throw new EmptyTreeException("Lista vazia.");
+		}
+		return this.root;
 	}
 	
 	/**
@@ -74,7 +92,13 @@ public class LinkedBinaryTree<E> {
 	 * LanÃ§a BoundaryViolationException se nao tiver filho da esquerda
 	 */
 	public BTPosition<E> left(BTPosition<E> v) throws InvalidPositionException, BoundaryViolationException{
-		return null;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		if(v.getLeft() == null) {
+			throw new BoundaryViolationException("Posição a esquerda não existe.");
+		}
+		return v.getLeft();
 	}
 	
 	/**
@@ -82,7 +106,13 @@ public class LinkedBinaryTree<E> {
 	 * LanÃ§a BoundaryViolationException se nao tiver filho da direita
 	 */
 	public BTPosition<E> right(BTPosition<E> v) throws InvalidPositionException, BoundaryViolationException{
-		return null;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		if(v.getRight() == null) {
+			throw new BoundaryViolationException("Posição a direita não existe.");
+		}
+		return v.getRight();
 	}
 	
 	/**
@@ -90,7 +120,13 @@ public class LinkedBinaryTree<E> {
 	 * LanÃ§a BoundaryViolationException se nao tiver pai
 	 */
 	public BTPosition<E> parent(BTPosition<E> v) throws InvalidPositionException, BoundaryViolationException{
-		return null;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		if(v.getParent() == null) {
+			throw new BoundaryViolationException("Posição pai não existe.");
+		}
+		return v.getParent();
 	}
 	
 	/**
@@ -98,7 +134,12 @@ public class LinkedBinaryTree<E> {
 	 * Retorna o elemento substituido
 	 */
 	public E replace(BTPosition<E> v, E o) throws InvalidPositionException{
-		return null;
+		if(v == null) {
+			throw new InvalidPositionException("Posição inválida.");
+		}
+		E returned = v.getElement();
+		v.setElement(o);
+		return returned;
 	}
 	
 	/**
@@ -113,7 +154,11 @@ public class LinkedBinaryTree<E> {
 	 * Insere a raiz em uma arvore vazia
 	 */
 	public BTPosition<E> addRoot(E e) throws NonEmptyTreeException{
-		return null;
+		if(this.size != 0) {
+			throw new EmptyTreeException("A lista precisa estar vazia para adicionar um root.");
+		}
+		this.root.setElement(e);
+		return this.root;
 	}
 	
 	/**
